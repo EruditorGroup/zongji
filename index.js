@@ -255,7 +255,9 @@ ZongJi.prototype.start = function(options = {}) {
     switch (event.getTypeName()) {
       case 'TableMap': {
         const tableMap = this.tableMap[event.tableId];
-        if (!tableMap) {
+
+        // tableId collision?
+        if (!tableMap || tableMap.columnSchemas[0].TABLE_NAME !== event.tableName) {
           this.connection.pause();
           this._fetchTableInfo(event, () => {
             // merge the column info with metadata
