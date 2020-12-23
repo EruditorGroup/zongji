@@ -270,6 +270,9 @@ ZongJi.prototype.start = function(options = {}) {
         break;
       }
       case 'Rotate':
+        // tableId-s can be changed between binlog files
+        this.tableMap = {};
+
         if (this.options.filename !== event.binlogName) {
           this.options.filename = event.binlogName;
         }
